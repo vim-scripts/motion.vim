@@ -1,0 +1,17 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=2026
+
+motion text in command mode.
+use:
+**line**
+CTRL+up      - move line
+CTRL+down - move line
+
+**char**
+CTRL+right   - move char
+CTRL+left     - move char
+
+**screen**
+SHIFT+up      - move screen
+SHIFT+down - move screen
+SHIFT+right   - move screen
+SHIFT+left     - move screen
