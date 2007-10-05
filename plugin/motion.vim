@@ -6,8 +6,8 @@
 "       Author: Ivan Carlos S. Lopes <lopesivan (at) poli (dot) com (dot) br>
 "   Maintainer: Ivan Carlos S. Lopes <lopesivan (at) poli (dot) com (dot) br>
 "
-"  Last Change: $Date:$
-"      Version: $Revision:$
+"  Last Change: $Date$
+"      Version: $Revision$
 "
 "    Copyright: This script is released under the Vim License.
 "
@@ -17,11 +17,11 @@
 " **line**
 " CTRL+up     - move line
 " CTRL+down   - move line
-" 
+"
 " **char**
 " CTRL+right  - move char
 " CTRL+left   - move char
-" 
+"
 " **screen**
 " SHIFT+up    - move screen
 " SHIFT+down  - move screen
@@ -33,8 +33,8 @@ if &cp || exists("g:loaded_motion") || exists("g:loaded_screen")
 endif
 
 let g:loaded_motion = "v01"
-let g:loaded_screen  = "v01"
-let s:keepcpo  = &cpo
+let g:loaded_screen = "v01"
+let s:keepcpo       = &cpo
 set cpo&vim
 
 " ----------------------------------------------------------------------------
@@ -63,13 +63,12 @@ elseif  ( !hasmapto('<Plug>ScreenToLeft' ) &&
 
 	if ( !has("gui_running") || has("win32") )
 
-		echo "Error: No Key mapped."
+		echo "warning: No Key mapped."
 		echo printf( "%8s\t%s", "<S-Up>",    "shift-cursor-up"   )
 		echo printf( "%8s\t%s", "<S-Down>",  "shift-cursor-down" )
 		echo printf( "%8s\t%s", "<S-Left>",  "shift-cursor-left" )
 		echo printf( "%8s\t%s", "<S-Right>", "shift-cursor-right")
 		echo "takens and a replacement were not assigned."
-
 	endif
 
 	let g:loaded_screen = 0
@@ -135,16 +134,12 @@ if ( !hasmapto('<Plug>LineToUp'   ) &&
 	map  <unique> <C-Right> <Plug>CharToRight
 	map  <unique> <C-Left>  <Plug>CharToLeft
 
-	" A map for swapping paragraphs
-	map _sp {dap}p{
-
 	" A pair of maps for swapping a word to-the-left and to-the-right:
-	"
 	nnoremap <unique> <silent>
-	\ ( "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>:silent! /Wuff  ----  Wuff!!<CR><c-o><c-l>
+	\ `<left> "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>:silent! /Wuff  ----  Wuff!!<CR><c-o><c-l>
 
 	nnoremap <unique> <silent>
-	\ ) "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR>:silent! /Wuff  ----  Wuff!!<CR><c-l>
+	\ `<right> "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR>:silent! /Wuff  ----  Wuff!!<CR><c-l>
 
 elseif ( !hasmapto('<Plug>MoveLineToUp'   ) &&
 \        !hasmapto('<Plug>MoveLineToDown' ) &&
@@ -199,18 +194,6 @@ endfunction
 "
 " MoveLineToDown
 "
-"function <SID>MoveLineToDown()
-"	let cursor_position_y = line('.')
-"	let last_line_nuber   = line('$')
-"
-"	if cursor_position_y == last_line_nuber
-"		echohl WarningMsg | echo '-- Last line --'| echohl None
-"	else
-"		silent normal ddp
-"		echohl NonText | echo '-- Move to down --'| echohl None
-"	endif
-"
-"endfunction
 function <SID>MoveLineToDown()
 	if line('.') < line('$')
 		let cur_col = virtcol('.')
@@ -224,17 +207,6 @@ endfunction
 "
 " MoveLineToUp
 "
-"function <SID>MoveToLineUp()
-"	let cursor_position_y = line('.')
-"
-"	if cursor_position_y == 1
-"		echohl WarningMsg | echo '-- First line --'| echohl None
-"	else
-"		silent normal ddkP
-"		echohl NonText | echo '-- Move to up --'| echohl None
-"	endif
-"
-"endfunction
 function <SID>MoveToLineUp()
 	if line('.') > 1
 		let cur_col = virtcol('.')
